@@ -1,0 +1,10 @@
+Autorzy, data
+Laboratorium nr
+Temat lab
+1.tresc zadan
+2.argumentacja rozwiazania zadan, fragmenty algorytmu kodu ilustrujacego rozw.
+3.wykresy tabele wyniki liczbowe
+4.wnioski obserwacje uwagi
+5.bibliografia
+FORMAT TO pdf
+NIE ZIPOWAC KODU
