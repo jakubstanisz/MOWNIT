@@ -26,3 +26,11 @@ Różnice w wartościach oryginalnej i stabilnej wersji wyrażeń na przykładzi
 |:----------:|:--------:|:---------:|:----------:|:-------------:|
 |$\mathbf{\sqrt{x+1}-1}$|$\mathbf{\frac{x}{\sqrt{x+1}+1}}$| $\mathbf{x = 10^{-11}}$ | $\mathbf{0.00000}$ | $\mathbf{5E-12}$ | 
 | $\mathbf{x^2 - y^2}$ | $\mathbf{(x-y)(x+y)}$ | $\mathbf{x = 1.0000000001}$ $\mathbf{y = 1.0000000000}$ | $\mathbf{0E-9}$ | $\mathbf{2E-13}$ |
+
+Wnioski:
+- Nawet poprawna matematycznie metoda może produkować błędne wyniki w arytmetyce komputerowej, dlatego postać wzoru jest kluczowa dla stabilności.
+
+- Błąd kancelacji można skutecznie wyeliminować poprzez przekształcenia algebraiczne, takie jak mnożenie przez sprzężenie lub faktoryzacja.
+
+- Otrzymanie wyniku 0.00000 lub 0E-9 w wersji oryginalnej przy niezerowym wyniku wersji stabilnej dowodzi utraty informacji o wyniku na skutek zaokrągleń.
+
