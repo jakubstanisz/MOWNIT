@@ -8,7 +8,7 @@
 ## 1. Treść zadań
 
 * **Zadanie 1:** Oblicz przybliżoną wartość pochodnej funkcji, używając wzoru na różnicę progresywną $f^{\prime}(x) \approx \frac{f(x+h)-f(x)}{h}$. Sprawdź działanie programu dla funkcji $\tan(x)$ w punkcie $x=1$. Powtórz ćwiczenie, używając wzoru różnic centralnych. Na wspólnym rysunku przedstaw wykresy wartości bezwzględnej błędu metody, błędu numerycznego oraz błędu obliczeniowego w zależności od kroku $h$.
-* **Zadanie 2:** Przepisz podane wyrażenia (np. $\sqrt{x+1}-1$ dla $x \approx 0$ oraz $x^2-y^2$ dla $x \approx y$), tak aby zmniejszyć błąd numeryczny dla wskazanych argumentów.
+* **Zadanie 2:** Przepisz podane wyrażenia, tak aby zmniejszyć błąd numeryczny dla wskazanych argumentów.
 * **Zadanie 3:** Rozważana jest funkcja $f(x) = \frac{e^x-1}{x}$ dla $x \neq 0$ oraz $f(x) = 1$ dla $x = 0$. Zaproponuj sposób obliczania funkcji o lepszych własnościach numerycznych, korzystając z rozwinięcia w szereg Taylora oraz funkcji `expm1`.
 * **Zadanie 4:** Napisz program obliczający sumę $n$ liczb zmiennoprzecinkowych pojedynczej precyzji, losowo rozłożonych w przedziale [0,1]. Sumę należy obliczyć na 5 sposobów, wykorzystując m.in. różne typy akumulatorów, sortowanie elementów oraz algorytm Kahana z kompensacją błędu.
 
@@ -28,21 +28,60 @@ for k, h in zip(k_vals, h_vals):
     err_2 = np.abs(df_cd - exact)
 ```
 
-### Zadanie 2
-Bezpośrednie ewaluowanie wyrażeń takich jak różnica pierwiastków lub zbliżonych wartości potęg prowadzi do błędu kancelacji numerycznej. Przekształcenie algebraiczne (np. mnożenie przez sprzężenie, wzory skróconego mnożenia, tożsamości trygonometryczne) usuwa zjawisko utraty precyzji. Poniżej przedstawiono implementację z wykorzystaniem wyższej precyzji modułu `decimal`.
+![Wykres Zadanie 1](Zadanie1_graph.png)
+<center>
+Rys. 1. Wykres zależności wartości bezwględnej błędu od wartości błędu h.
+</center>
 
-```python
-def calculate_error_a():
-    x = dec.Decimal('1e-11')
-    f1 = (x + 1).sqrt() - 1
-    f1_stable = x / ((x + 1).sqrt() + 1)
-    
-def calculate_error_b():
-    x = dec.Decimal('1.00000000001')
-    y = dec.Decimal('1.00000000000')
-    f2 = (x*x) - (y*y)
-    f2_stable = (x - y) * (x + y)
-```
+#### Wnioski: 
+
+Wykres błędu posiada wyraźne minimum. Osiągnięcie najniższego błędu waha się na granicy wpływu błędu obcięcia oraz utraty precyzji obliczeniowej. Metoda różnic centralnych jest weryfikowalnie znacznie dokładniejsza (rząd rzędu $\approx 10^{-11}$) niż metoda progresywna (rząd $\approx 10^{-8}$).
+
+---
+
+### Zadanie 2
+
+Poniżej przedstawiono przekształcenia mające na celu zmniejszenie błędu numerycznego dla wskazanych argumentów.
+
+- $\sqrt{x+1}-1$, $x \approx 0$
+  $$\frac{(\sqrt{x+1}-1)(\sqrt{x+1}+1)}{\sqrt{x+1}+1} = \frac{x+1-1}{\sqrt{x+1}+1} = \mathbf{\frac{x}{\sqrt{x+1}+1}}$$
+
+- $x^{2}-y^{2}$, $x \approx y$
+  $$\mathbf{(x-y)(x+y)}$$
+
+- $\frac{1-\cos x}{\sin x}$, $x \approx 0$
+  $$\frac{2\sin^{2}(x/2)}{2\sin(x/2)\cos(x/2)} = \frac{\sin(x/2)}{\cos(x/2)} = \mathbf{\tan(x/2)}$$
+
+- $\sin x - \sin y$, $x \approx y$
+  $$\mathbf{2\sin\left(\frac{x-y}{2}\right)\cos\left(\frac{x+y}{2}\right)}$$
+
+- $\frac{a+b}{2}$ (bisekcja odcinka $[a, b]$)
+  $$\mathbf{a + \frac{b-a}{2}}$$
+
+- $\text{softmax}(x)_{i} = \frac{\exp(x_{i})}{\sum_{j}\exp(x_{j})}$
+  $M = \max(x)$ $$\mathbf{\frac{\exp(x_{i} - M)}{\sum_{j}\exp(x_{j} - M)}}$$
+
+<center>
+
+| Oryginalna | Stabilna | Argumenty | Wartość_og | Wartość_st |
+|:----------:|:--------:|:---------:|:----------:|:-------------:|
+|$\mathbf{\sqrt{x+1}-1}$|$\mathbf{\frac{x}{\sqrt{x+1}+1}}$| $\mathbf{x = 10^{-11}}$ | $\mathbf{0.00000}$ | $\mathbf{5E-12}$ | 
+| $\mathbf{x^2 - y^2}$ | $\mathbf{(x-y)(x+y)}$ | $\mathbf{x = 1.0000000001}$ $\mathbf{y = 1.0000000000}$ | $\mathbf{0E-9}$ | $\mathbf{2E-13}$ |
+
+
+Tabela 1. Różnice w wartościach oryginalnej i stabilnej wersji wyrażeń na przykładzie dwóch podpunktów, precyzja wynosi 10 cyfr znaczących.
+</center>
+
+<br>
+
+#### Wnioski:
+- Nawet poprawna matematycznie metoda może produkować błędne wyniki w arytmetyce komputerowej, dlatego postać wzoru jest kluczowa dla stabilności.
+
+- Błąd kancelacji można skutecznie wyeliminować poprzez przekształcenia algebraiczne, takie jak mnożenie przez sprzężenie lub faktoryzacja.
+
+- Otrzymanie wyniku 0.00000 lub 0E-9 w wersji oryginalnej przy niezerowym wyniku wersji stabilnej dowodzi utraty informacji o wyniku na skutek zaokrągleń.
+
+---
 
 ### Zadanie 3
 Dla małych $x$ odejmowanie $e^x - 1$ skutkuje błędami zaokrągleń. Zastosowanie szeregu Taylora wyodrębnia wyrazy sprawiające problem. Dedykowana funkcja biblioteczna `expm1` realizuje to zadanie w tle i podnosi stabilność.
@@ -62,48 +101,38 @@ def f4(x):
     return np.expm1(x) / x
 ```
 
-### Zadanie 4
-Sumowanie milionów małych liczb typu `float32` do wspólnego akumulatora powoduje ignorowanie składników na skutek asymetrii rzędu wielkości pomiędzy małą dodawaną liczbą a dużą akumulowaną sumą. Algorytm Kahana rozwiązuje ten problem, wprowadzając pomocniczą zmienną korekcyjną `err`. 
 
-```python
-def sum_c(numbers):
-    total = np.float32(0.0)
-    err = np.float32(0.0)
-    for x in numbers:
-        y = np.float32(x - err)
-        temp = np.float32(total + y)
-        err = np.float32(np.float32(temp - total) - y)
-        total = temp
-    return total
-```
-
----
-
-## 3. Wykresy, tabele, wyniki liczbowe
-
-### Wykres: Zadanie 1
-![Wykres Zadanie 1](Zadanie1_graph.png)
-
-### Tabela wyników: Zadanie 2
-| Oryginalna | Stabilna | Argumenty | Wartość_og | Wartość_st |
-|:----------:|:--------:|:---------:|:----------:|:-------------:|
-| $\sqrt{x+1}-1$ | $\frac{x}{\sqrt{x+1}+1}$ | $x = 10^{-11}$ | 0.00000 | 5E-12 | 
-| $x^2 - y^2$ | $(x-y)(x+y)$ | $x = 1.0000000001$<br>$y = 1.0000000000$ | 0E-9 | 2E-13 |
-
-### Wykres: Zadanie 3
 ![Wykres Zadanie 3](Zadanie3_graph.png)
 
-### Wykres: Zadanie 4
-![Wykres Zadanie 4](Zadanie4_graph.png)
+<center>
+Rys. 2. Wykres zależności wartościfunkcji od jej argumentu.
+</center>
+
+#### Wnioski:
+Powszechne biblioteczne metody numeryczne ulegają znaczącej degradacji stabilności, gdy stosowane są blisko wartości granicznych (jak ułamek w rejonie bliskim zeru). Dedykowane transformacje (np. szereg Taylora lub optymalizowane niskopoziomowo instrukcje typu `expm1`) całkowicie stabilizują obszar numerycznej "niepewności".
 
 ---
 
-## 4. Wnioski, obserwacje, uwagi
+### Zadanie 4
+Celem ćwiczenia było porównanie pięciu metod sumowania $n$ liczb typu float32 z przedziału [0, 1] względem wyniku wzorcowego z math.fsum()
 
-* **Zadanie 1:** Wykres błędu posiada wyraźne minimum. Osiągnięcie najniższego błędu waha się na granicy wpływu błędu obcięcia oraz utraty precyzji obliczeniowej. Metoda różnic centralnych jest weryfikowalnie znacznie dokładniejsza (rząd rzędu $\approx 10^{-11}$) niż metoda progresywna (rząd $\approx 10^{-8}$).
-* **Zadanie 2:** Wyniki $0.00000$ lub $0E-9$ w oryginalnych równaniach (przy niezerowym matematycznie wyniku) dowodzą, jak niefortunny układ operacji prowadzi do całkowitej utraty informacji na drodze błędów kancelacji. Zastosowanie odpowiednich wzorów jest fundamentem stabilności algorytmu.
-* **Zadanie 3:** Powszechne biblioteczne metody numeryczne ulegają znaczącej degradacji stabilności, gdy stosowane są blisko wartości granicznych (jak ułamek w rejonie bliskim zeru). Dedykowane transformacje (np. szereg Taylora lub optymalizowane niskopoziomowo instrukcje typu `expm1`) całkowicie stabilizują obszar numerycznej "niepewności".
-* **Zadanie 4:** Algorytm Kahana zawsze oferuje najdokładniejsze podejście z uwagi na stałą kompensację zmiennoprzecinkową i drastycznie redukuje błąd względem prostej akwizycji dla `float32`. Użycie akumulatora o większej pojemności `float64` to jednak z reguły najprostsza ścieżka do redukcji błędu.
+#### Metody:
+- Sumowanie losowe z akumulatorem float64
+- Sumowanie losowe z akumulatorem float32
+- Algorytm Kahana (kompensacja błędu), float32
+- Sumowanie po posortowaniu rosnąco, float32
+- Sumowanie po posortowaniu malejąco, float32
+
+
+![image](zadanie4_graph.png)
+<center>
+Rys. 3. Wykres zależności zaobserwowanego błędu sumowania od liczby sumowanych elementów.
+</center>
+
+#### Wnioski:
+- Algorytm Kahana (c) za każdym razem daje najdokładniejszy wynik
+- Zastosowanie akumulatora float64 (a) znacząco redukuje błąd względem metod 32-bitowych
+- Standardowe metody (b, d, e) wykazują zbliżony poziom błędów przy niskiej precyzji obliczeń
 
 ---
 
