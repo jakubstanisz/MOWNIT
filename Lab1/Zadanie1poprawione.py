@@ -89,8 +89,8 @@ plt.loglog(h_vals, err_method_1_vals, '--', label='Blad metody (wzor 1)')
 plt.loglog(h_vals, err_num_1_vals, ':', label='Blad numeryczny (wzor 1)')
 plt.loglog(h_vals, err_2_vals, 's-', label='Blad obliczeniowy E(h) - wzor (3)')
 
-plt.axvline(h_min_emp_1, color='blue', alpha=0.3, linestyle='--', label=f'h_min emp (1) = {h_min_emp_1:.1e}')
-plt.axvline(h_min_emp_2, color='orange', alpha=0.5, linestyle='--', label=f'h_min emp (3) = {h_min_emp_2:.1e}')
+plt.axvline(h_min_emp_1, color='blue', alpha=0.3, linestyle='--', label=f'h_min emp (1) = {h_min_emp_1:.1e} (Blad: {min_err_1:.2e})')
+plt.axvline(h_min_emp_2, color='orange', alpha=0.5, linestyle='--', label=f'h_min emp (3) = {h_min_emp_2:.1e} (Blad: {min_err_2:.2e})')
 
 plt.xlabel('Krok h')
 plt.ylabel('Wartosc bezwzgledna bledu')

@@ -28,7 +28,7 @@ for k, h in zip(k_vals, h_vals):
     err_2 = np.abs(df_cd - exact)
 ```
 
-![Wykres Zadanie 1](Zadanie1_graph.png)
+![Wykres Zadanie 1](Zadanie1_graph_poprawione.png)
 <center>
 Rys. 1. Wykres zależności wartości bezwględnej błędu od wartości błędu h.
 </center>
