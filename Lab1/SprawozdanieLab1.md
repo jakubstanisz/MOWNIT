@@ -28,14 +28,17 @@ for k, h in zip(k_vals, h_vals):
     err_2 = np.abs(df_cd - exact)
 ```
 
-![Wykres Zadanie 1](Zadanie1_graph.png)
+![Wykres Zadanie 1](Zadanie1_graph_poprawione.png)
 <center>
 Rys. 1. Wykres zależności wartości bezwględnej błędu od wartości błędu h.
 </center>
 
+
 #### Wnioski: 
 
-Wykres błędu posiada wyraźne minimum. Osiągnięcie najniższego błędu waha się na granicy wpływu błędu obcięcia oraz utraty precyzji obliczeniowej. Metoda różnic centralnych jest weryfikowalnie znacznie dokładniejsza (rząd rzędu $\approx 10^{-11}$) niż metoda progresywna (rząd $\approx 10^{-8}$).
+Wykres błędu posiada wyraźne minimum dla obu metod, zwane $h_{min\_emp}$. Osiągnięcie najniższego błędu waha się na granicy wpływu błędu obcięcia oraz utraty precyzji obliczeniowej. Metoda różnic centralnych jest weryfikowalnie znacznie dokładniejsza niż metoda progresywna.
+
+Dla wzoru na różnicę progresywną (1), wartość $h_{min\_emp}$ wynosi $1.0\times 10^{-8}$, a minimalny wyznaczony błąd bezwzględny oscyluje wokół $1.16\times 10^{-8}$. Dla różnicy centralnej (3), wartość $h_{min\_emp}$ wynosi $1.0\times 10^{-5}$, co redukuje ostateczny minimalny błąd bezwzględny do zaledwie $6.15\times 10^{-12}$.
 
 ---
 
