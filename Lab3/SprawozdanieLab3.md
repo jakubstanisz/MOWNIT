@@ -114,6 +114,6 @@ Do analizy wykorzystano dane z lat 1965–1991. Zastosowano splajny kubiczne ora
 
 Funkcje sklejane trzeciego stopnia są znacznie bardziej stabilne niż wielomian globalny.
 
-Najlepsze wyniki daje splajn **naturalny**, który ma najmniejsze błędy.  
+Najlepsze wyniki daje splajn naturalny, który ma najmniejsze błędy.  
 Wielomian Lagrange'a wykazuje bardzo duży błąd (ponad 700%) przy ekstrapolacji, co potwierdza jego niestabilność poza zakresem danych.
 W zastosowaniach inżynierskich i analitycznych należy unikać wielomianów wysokiego stopnia do ekstrapolacji. Zamiast tego zaleca się stosowanie funkcji sklejanych lub innych metod aproksymacji lokalnej.
