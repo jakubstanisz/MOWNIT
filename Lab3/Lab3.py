@@ -113,7 +113,7 @@ print(f"Wielomian Lagrange'a: {err_lag}")
 plt.figure(figsize=(10, 6))
 
 
-t2_dense = np.linspace(1965, 1991, 300)
+t2_dense = np.linspace(1960, 1995, 300)
 
 # wykresy splajnów
 plt.plot(t2_dense, cs_not_a_knot(t2_dense), label="not-a-knot")

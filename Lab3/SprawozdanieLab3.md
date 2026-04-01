@@ -4,7 +4,7 @@
 
 W zadaniu analizowana jest populacja Stanów Zjednoczonych na przestrzeni lat. Celem jest zbudowanie wielomianu interpolacyjnego ósmego stopnia, który interpoluje podane dziewięć punktów.
 
-### (a) i (b) Konstrukcja macierzy Vandermonde'a i badanie uwarunkowania
+### Konstrukcja macierzy Vandermonde'a i badanie uwarunkowania
 
 Rozważono cztery różne bazy funkcji wielomianowych:
 
@@ -27,7 +27,7 @@ Baza nr 4 jest zdecydowanie najlepiej uwarunkowana – przeskalowanie danych do 
 
 ---
 
-### (c) Wielomian interpolacyjny w najlepiej uwarunkowanej bazie
+### Wielomian interpolacyjny w najlepiej uwarunkowanej bazie
 
 Używając bazy nr 4, wyznaczono współczynniki wielomianu:
 [ 1.32164569e+08 4.61307656e+07 1.02716315e+08 1.82527130e+08
@@ -54,7 +54,7 @@ $$
 
 ---
 
-### (d) Ekstrapolacja dla roku 1990
+### Ekstrapolacja dla roku 1990
 
 - Wynik ekstrapolacji: **82 749 141**
 - Wartość rzeczywista: **248 709 873**
@@ -62,13 +62,13 @@ $$
 
 ---
 
-### (e) i (f) Wielomiany Lagrange'a i Newtona
+### Wielomiany Lagrange'a i Newtona
 
 Obie metody prowadzą do tego samego wielomianu interpolacyjnego, różniąc się jedynie sposobem obliczeń.
 
 ---
 
-### (g) Analiza zaokrąglonych danych
+### Analiza zaokrąglonych danych
 
 Współczynniki po zaokrągleniu danych:
 [ 1.32000000e+08 4.59571429e+07 1.00141270e+08 1.81111111e+08
@@ -104,7 +104,7 @@ Do analizy wykorzystano dane z lat 1965–1991. Zastosowano splajny kubiczne ora
 
 ---
 
-## Porównanie metod interpolacji (cytrusy)
+## Porównanie metod interpolacji
 
 ![Interpolacja cytrusów](InterpolacjaCytrusow.png)
 
