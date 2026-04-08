@@ -21,9 +21,7 @@ Dla każdego z czterech zbiorów utworzono macierz Vandermonde'a i obliczono wsp
 - Baza 3: $9.32 \cdot 10^{12}$
 - Baza 4: $1.61 \cdot 10^{3}$
 
-**Wniosek:**  
-Baza nr 1 jest skrajnie źle uwarunkowana, co oznacza ogromną utratę precyzji numerycznej.  
-Baza nr 4 jest zdecydowanie najlepiej uwarunkowana – przeskalowanie danych do przedziału $[-1,1]$ znacząco poprawia stabilność obliczeń.
+**Wniosek:** Baza nr 1 jest skrajnie źle uwarunkowana, co oznacza ogromną utratę precyzji numerycznej. Baza nr 4 jest zdecydowanie najlepiej uwarunkowana – przeskalowanie danych do przedziału $[-1,1]$ znacząco poprawia stabilność obliczeń.
 
 ---
 
@@ -77,16 +75,15 @@ Współczynniki po zaokrągleniu danych:
 
 - Błąd względny po zaokrągleniu: **56.1738%**
 
-**Wyjaśnienie:**  
-Niewielka zmiana danych wejściowych powoduje dużą zmianę współczynników wielomianu. Wynika to z bardzo złego uwarunkowania problemu interpolacji wysokiego stopnia.
+**Wyjaśnienie:** Niewielka zmiana danych wejściowych powoduje dużą zmianę współczynników wielomianu. Wynika to z bardzo złego uwarunkowania problemu interpolacji wysokiego stopnia. 
 
-Dodatkowo, duży błąd ekstrapolacji jest skutkiem efektu Rungego – oscylacji wielomianu poza przedziałem danych.
+Duży błąd predykcji dla danych ekstrapolowanych **nie wynika** z efektu Rungego. Efekt Rungego dotyczy niepożądanych oscylacji wielomianu wewnątrz przedziału interpolacji (szczególnie na jego brzegach). Niska dokładność w tym przypadku wynika z faktu, że wielomiany wysokiego stopnia gwałtownie rosną lub maleją poza zakresem węzłów, przez co naturalnie nie nadają się do ekstrapolacji.
 
 ---
 
 ## Zadanie 2. Analiza produkcji cytrusów we Włoszech
 
-Do analizy wykorzystano dane z lat 1965–1991. Zastosowano splajny kubiczne oraz wielomian Lagrange'a.
+Do analizy wykorzystano dane z lat 1965–1991. Zastosowano splajny kubiczne (warianty: not-a-knot, natural, clamped), interpolację zachowującą monotoniczność PCHIP (Piecewise Cubic Hermite Interpolating Polynomial) oraz wielomian Lagrange'a.
 
 ### Porównanie błędów względnych
 
@@ -99,6 +96,9 @@ Do analizy wykorzystano dane z lat 1965–1991. Zastosowano splajny kubiczne ora
 - Splajn **clamped**:  
   `[0.9639, 0.1561, 0.3086]`
 
+- **PCHIP**:  
+  '[0.12027226 0.08023642 0.01885066]'
+
 - Wielomian **Lagrange'a**:  
   `[7.2862, 0.4401, 0.3432]`
 
@@ -106,14 +106,16 @@ Do analizy wykorzystano dane z lat 1965–1991. Zastosowano splajny kubiczne ora
 
 ## Porównanie metod interpolacji (cytrusy)
 
-![Interpolacja cytrusów](InterpolacjaCytrusow.png)
+Na poniższym wykresie przedstawiono dane oraz przebieg wszystkich badanych funkcji interpolujących (splajny, PCHIP, wielomian Lagrange'a), co pozwala na wizualną ocenę ich zachowania pomiędzy węzłami oraz przy ekstrapolacji.
+
+![Interpolacja cytrusów](NoweCytrusy2.png)
 
 ---
 
 ### Wnioski końcowe
 
-Funkcje sklejane trzeciego stopnia są znacznie bardziej stabilne niż wielomian globalny.
+Funkcje sklejane trzeciego stopnia oraz interpolacja PCHIP są znacznie bardziej stabilne niż wielomian globalny. 
 
-Najlepsze wyniki daje splajn **naturalny**, który ma najmniejsze błędy.  
-Wielomian Lagrange'a wykazuje bardzo duży błąd (ponad 700%) przy ekstrapolacji, co potwierdza jego niestabilność poza zakresem danych.
-W zastosowaniach inżynierskich i analitycznych należy unikać wielomianów wysokiego stopnia do ekstrapolacji. Zamiast tego zaleca się stosowanie funkcji sklejanych lub innych metod aproksymacji lokalnej.
+Najlepsze wyniki daje splajn **naturalny** oraz **PCHIP**. Wielomian Lagrange'a wykazuje bardzo duży błąd (ponad 700%) przy ekstrapolacji, co potwierdza jego niestabilność poza zakresem danych. PCHIP pozwala dodatkowo uniknąć sztucznych oscylacji (nadmiernych przeregulowań) występujących często w standardowych splajnach, ponieważ narzuca zachowanie monotoniczności pomiędzy węzłami.
+
+W zastosowaniach inżynierskich i analitycznych należy unikać wielomianów wysokiego stopnia do ekstrapolacji. Zamiast tego zaleca się stosowanie funkcji sklejanych lub metod aproksymacji lokalnej (takich jak PCHIP).
