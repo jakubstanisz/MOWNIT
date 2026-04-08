@@ -1,5 +1,6 @@
 # Sprawozdanie: Interpolacja i Ekstrapolacja
 
+## Autorzy: Jakub Staniszewski, Jacek Łoboda
 ## Zadanie 1. Analiza populacji Stanów Zjednoczonych (1900–1980)
 
 W zadaniu analizowana jest populacja Stanów Zjednoczonych na przestrzeni lat. Celem jest zbudowanie wielomianu interpolacyjnego ósmego stopnia, który interpoluje podane dziewięć punktów.
@@ -97,7 +98,7 @@ Do analizy wykorzystano dane z lat 1965–1991. Zastosowano splajny kubiczne (wa
   `[0.9639, 0.1561, 0.3086]`
 
 - **PCHIP**:  
-  '[0.12027226 0.08023642 0.01885066]'
+  `[0.12027226 0.08023642 0.01885066]`
 
 - Wielomian **Lagrange'a**:  
   `[7.2862, 0.4401, 0.3432]`
