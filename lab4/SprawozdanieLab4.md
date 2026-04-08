@@ -14,7 +14,7 @@ Celem pierwszego zadania było porównanie średniej geometrycznej odległości 
 * punkty rozłożone równomiernie.
 
 **Punkty Czebyszewa**
-Na przedziale $x \in [-1,1]$ punkty Czebyszewa wyraża się wzorem $t_{i}=-\cos(\frac{2i-1}{2n}\pi)$ dla $i=1,2,...n$. Ogólniej, dla dowolnego przedziału $x \in [a,b]$ stosuje się wzór $x_{i}=\frac{a+b}{2}+\frac{b-a}{2}t_{i}$.
+Na przedziale $x \in [-1,1]$ punkty Czebyszewa wyraża się wzorem $t_{i}=-\cos(\frac{2i-1}{2n}\pi)$ dla $i=1,2,...n$.
 
 **Punkty Legendre'a**
 Punkty te wyznaczane są jako miejsca zerowe wielomianów Legendre'a. Do ich wyznaczenia uzyto funkcji numpy.polynomial.legendre.legroots.
