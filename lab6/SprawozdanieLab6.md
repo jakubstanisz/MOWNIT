@@ -40,7 +40,7 @@ Kwadratura Gaussa cechuje się zbieżnością wykładniczą dla funkcji gładkic
 ## 4. Zadanie 3: Metody adaptacyjne
 Wykorzystano funkcję `quad_vec` z parametrem `epsrel=0`, aby wymusić adaptację do zadanej tolerancji bezwzględnej.
 * Adaptacyjne Trapezy: Wykazują zbieżność typową dla rzędu 2, wymagając dużej liczby podziałów przy małych tolerancjach.
-* Adaptacyjny Gauss-Kronrod (GK21): Jest najbardziej efektywny. Ze względu na wysoką dokładność bazy (21 punktów), dla badanej funkcji gładkiej algorytm natychmiastowo osiąga błąd rzędu $10^{-16}$, często nie potrzebując więcej niż 105 ewaluacji nawet dla małych tolerancji.
+* Adaptacyjny Gauss-Kronrod (GK21): Jest najbardziej efektywny. Ze względu na wysoką dokładność bazy (21 punktów), dla badanej funkcji gładkiej algorytm natychmiastowo osiąga minimalny blad$, często nie potrzebując więcej niż 105 ewaluacji nawet dla małych tolerancji.
 
 ![Wykres Zadania 3](3graph.png)
 
