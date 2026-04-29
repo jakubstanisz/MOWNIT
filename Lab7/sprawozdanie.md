@@ -46,7 +46,7 @@ Dodatkowo zbadano narastanie błędu przybliżenia okresu małych drgań ($T_0 =
 ### Wyniki i wnioski
 Dla zadanego wychylenia początkowego $45^\circ$, obie zaimplementowane metody (bezpośrednie kwadratury oraz algorytm AGM) pozwoliły na wyznaczenie wartości całki $K(k) \approx 1.6336$. Na podstawie tej wartości, dla wahadła o długości $l=1$ m, precyzyjny okres drgań wyniósł $T \approx 2.0863$ s.
 
-Metoda bezpośredniego całkowania numerycznego (kwadratury) z wykorzystaniem algorytmu `scipy.integrate.quad` poradziła sobie z wyznaczeniem wartości całki bez problemów ze zbieżnością. Warto jednak zauważyć, że metoda AGM charakteryzuje się szybką zbieżnością kwadratową, co czyni ją znacznie wydajniejszą obliczeniowo. Analiza wykresu błędu względnego dla metody AGM (względem zaimplementowanej w SciPy funkcji `ellipk`) pokazała, że już w 4-5 iteracji błąd spada do poziomu precyzji maszynowej (rzędu $10^{-16}$).
+Metoda bezpośredniego całkowania numerycznego (kwadratury) z wykorzystaniem algorytmu `scipy.integrate.quad` poradziła sobie z wyznaczeniem wartości całki bez problemów ze zbieżnością. Warto jednak zauważyć, że metoda AGM charakteryzuje się szybką zbieżnością kwadratową, co czyni ją znacznie wydajniejszą obliczeniowo. Analiza wykresu błędu względnego dla metody AGM (względem zaimplementowanej w SciPy funkcji `ellipk`) pokazała, że już w 4-5 iteracji błąd spada do poziomu (rzędu $10^{-16}$).
 
 ![](zdj1.png)
 
