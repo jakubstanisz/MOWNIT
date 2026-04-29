@@ -10,7 +10,7 @@ F = np.array([0, 37, 71, 104, 134, 161, 185, 207, 225, 239, 250])
 L = 0.5
 m = 0.075
 W = integrate.simpson(y=F, x=x)
-v = np.sqrt(2 * W / m)
+v = np.sqrt(2 * W / m) # przeksztalcenie wzoru W = 1/2 * m * v ** 2
 print(f"Praca (Simpson): {W:.4f} J")
 print(f"Predkosc strzaly: {v:.4f} m/s")
 # ZADANIE 2
@@ -21,7 +21,7 @@ mu = 0.3
 k = 80.0
 g = 9.81
 
-def f(x_val):
+def f(x_val): # definicja f(x)
     return mu * g + (k / m2) * (mu * l2 + x_val) * (1 - l2 / np.sqrt(l2**2 + x_val**2))
 
 W2, _ = integrate.quad(f, 0, l2)
