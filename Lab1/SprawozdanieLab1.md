@@ -95,8 +95,18 @@ def f1(x):
         return 1.0
     return (np.exp(x) - 1.0) / x
 
+def f2(x):
+    y = np.exp(x)
+    if y == 1.0:
+        return 1.0
+    return (y - 1.0) / np.log(y)
+
 def f3(x):
-    return 1.0 + x/2.0 + (x**2)/6.0 + (x**3)/24.0
+    n_terms = 10
+    result = 0.0
+    for i in range(n_terms):
+        result += (x**i) / factorial(i + 1)
+    return result
 
 def f4(x):
     if x == 0:

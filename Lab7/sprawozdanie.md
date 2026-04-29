@@ -44,8 +44,12 @@ Dla wahadła o amplitudzie $\theta_0 = 45^\circ$, precyzyjny okres drgań wyraż
 Dodatkowo zbadano narastanie błędu przybliżenia okresu małych drgań ($T_0 = 2\pi\sqrt{l/g}$) wraz ze wzrostem amplitudy startowej.
 
 ### Wyniki i wnioski
-Metoda AGM charakteryzuje się niezwykle szybką zbieżnością kwadratową. Analiza wykresu błędu względnego dla metody AGM (względem zaimplementowanej w SciPy funkcji `ellipk`) pokazała, że już w 4-5 iteracji błąd spada do poziomu precyzji maszynowej (rzędu $10^{-16}$). Czyni to algorytm AGM jedną z najpotężniejszych numerycznie metod do ewaluacji tego typu stałych.
+Dla zadanego wychylenia początkowego $45^\circ$, obie zaimplementowane metody (bezpośrednie kwadratury oraz algorytm AGM) pozwoliły na wyznaczenie wartości całki $K(k) \approx 1.6336$. Na podstawie tej wartości, dla wahadła o długości $l=1$ m, precyzyjny okres drgań wyniósł $T \approx 2.0863$ s.
+
+Metoda bezpośredniego całkowania numerycznego (kwadratury) z wykorzystaniem algorytmu `scipy.integrate.quad` poradziła sobie z wyznaczeniem wartości całki bez problemów ze zbieżnością. Warto jednak zauważyć, że metoda AGM charakteryzuje się szybką zbieżnością kwadratową, co czyni ją znacznie wydajniejszą obliczeniowo. Analiza wykresu błędu względnego dla metody AGM (względem zaimplementowanej w SciPy funkcji `ellipk`) pokazała, że już w 4-5 iteracji błąd spada do poziomu precyzji maszynowej (rzędu $10^{-16}$).
+
 ![](zdj1.png)
 
-Wykres błędu wzoru przybliżonego na okres wahadła udowodnił, że założenie o małych wychyleniach ($\sin\theta \approx \theta$) jest akceptowalne dla kątów do ok. $10^\circ-15^\circ$. Dla maksymalnego badanego kąta $90^\circ$, błąd względny aproksymacji liniowej rośnie drastycznie do około $18\%$, całkowicie dyskwalifikując wzór uproszczony $T_0$ w zagadnieniach wymagających wyższej precyzji.
+Wykres błędu wzoru przybliżonego na okres wahadła udowodnił, że założenie o małych wychyleniach ($\sin\theta \approx \theta$) jest akceptowalne dla kątów do ok. $10^\circ-15^\circ$. Dla maksymalnego badanego kąta $90^\circ$, błąd względny aproksymacji liniowej rośnie do około $18\%$.
+
 ![](zdj2.png)
