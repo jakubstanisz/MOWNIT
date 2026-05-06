@@ -99,18 +99,18 @@ Schemat wykorzystuje wyłącznie odejmowanie i mnożenie.
 Zaproponowano funkcję $f(x) = \frac{1}{x^2} - c = 0$, której pochodna to $f'(x) = -\frac{2}{x^3}$.
 Wzór iteracyjny:
 $$x_{n+1} = x_n - \frac{1/x_n^2 - c}{-2/x_n^3} = x_n + \frac{x_n^3}{2}(1/x_n^2 - c) = \frac{x_n}{2} (3 - c \cdot x_n^2)$$
- Dzielenie przez 2 realizowane jest szybkim przesunięciem bitowym (bit-shift).
+Dzielenie przez 2 realizowane jest przesunięciem bitowym.
 <br>
 
 - $x = \sqrt{c}$
 Zaproponowano funkcję $f(x) = x^2 - c = 0$, której pochodna to $f'(x) = 2x$.
 Wyprowadzenie:
 $$x_{n+1} = x_n - \frac{x_n^2 - c}{2x_n} = \frac{1}{2}\left(x_n + \frac{c}{x_n}\right)$$
-Wadą jest konieczność wykonywania ogólnego dzielenia ($c / x_n$) w każdej iteracji, co jest kosztowne sprzętowo.
+Wadą jest konieczność wykonywania ogólnego dzielenia ($c / x_n$) w każdej iteracji.
 <br>
 
 - $x = \sqrt{c}$
-Aby uniknąć dzielenia, wykorzystujemy wcześniej wyznaczoną wartośc odwrotności pierwiastka. Iteracyjnie wyliczamy wartość $1/\sqrt{c}$, a następnie uzyskany wynik mnożymy jednorazowo przez stałą $c$:
+Aby uniknąć dzielenia, wykorzystujemy wcześniej wyznaczoną iteracyjnie wartośc $1/\sqrt{c}$, a następnie uzyskany wynik mnożymy jednorazowo przez stałą $c$:
 $$c \cdot \frac{1}{\sqrt{c}} = \sqrt{c}$$
 <br>
 
@@ -118,30 +118,71 @@ Wyniki testów algorytmów
 
 Poniższa tabela przedstawia porównanie wartości dokładnych z wartościami obliczonymi przy użyciu powyższych schematów dla stałej $c = 5.0$.
 
-| Operacja | Metoda | Wartość dokładna | Wartość obliczona | Błąd przybliżenia |
-| :--- | :--- | :--- | :--- | :--- |
-| $1/c$ | Newton | 0.2 | 0.19999999999999998 | ~2.77e-17 |
-| $1/\sqrt{c}$ | Newton | 0.4472135954999579 | 0.4472135954999579 | 0.0 |
-| $\sqrt{c}$ | Heron | 2.23606797749979 | 2.23606797749979 | 0.0 |
-| $\sqrt{c}$ | - | 2.23606797749979 | 2.23606797749979 | 0.0 |
+| Operacja | Wartość dokładna | Wartość obliczona | Błąd przybliżenia |
+| :--- | :--- | :--- | :--- |
+| $1/c$ | 0.2 | 0.19999999999999998 | ~2.77e-17 |
+| $1/\sqrt{c}$ | 0.4472135954999579 | 0.4472135954999579 | 0.0 |
+| $\sqrt{c}$ | 2.23606797749979 | 2.23606797749979 | 0.0 |
+| $\sqrt{c}$ | 2.23606797749979 | 2.23606797749979 | 0.0 |
 
 
 ## 5. Układ równań nieliniowych
-Ostatnim etapem było rozwiązanie układu równań:
-1. $x_1^2 + x_2^2 = 1$
-2. $x_1^2 - x_2 = 0$
 
-**Metodyka:**
-Zastosowano wielowymiarową metodę Newtona, korzystając z macierzy Jacobiego. Wyznaczono pochodne czcoąstkowe funkcji składowych, co pozwoliło na iteracyjne wyliczanie poprawki $\Delta x$ poprzez rozwiązywanie układu równań liniowych $J \cdot \Delta x = -F$ w każdym kroku.
+Napisz schemat iteracji wg metody Newtona dla następującego układu równań nieliniowych
+$$x_{1}^{2}+x_{2}^{2}=1$$ 
+$$x_{1}^{2}-x_{2}=0$$ 
 
-**Wyniki:**
-Metoda Newtona dla układów równań wykazała się bardzo szybką zbieżnością. 
-- **Wyznaczone rozwiązanie:** $x_1 \approx 0.78615, x_2 \approx 0.61803$
-- **Błąd względny:** Rzędu $10^{-16}$ (po 10 iteracjach), co oznacza osiągnięcie pełnej precyzji maszynowej.
+Pierwiastki tego układu to:
+$$x_{1}=\pm\sqrt{\frac{\sqrt{5}-1}{2}}$$ 
+$$x_{2}=\frac{\sqrt{5}-1}{2}$$ 
 
-Warto zauważyć, że dobór punktu startowego ma kluczowe znaczenie – przy punkcie $(0.5, 0.5)$ algorytm zbiegł do rozwiązania dodatniego, natomiast przy zmianie znaku $x_1$ w punkcie startowym, zbiegłby do symetrycznego rozwiązania ujemnego.
+Korzystając z tego, oblicz błąd względny rozwiązania znalezionego metodą Newtona.
 
-## 6. Podsumowanie
-Dzisiejsze laboratorium świetnie ukazało dualizm algorytmów numerycznych rozwiązywania równań nieliniowych. Metoda Newtona (oraz ogólnie metody o wyższym rzędzie zbieżności) pozwala osiągnąć doskonałe rezultaty w zaledwie ułamek czasu działania innych algorytmów. Niestety, wymaga ona spełnienia rygorystycznych założeń (istnienie ciągłej 1. i 2. pochodnej, brak maksimów i minimów, dobry punkt startowy w sąsiedztwie rozwiązania). 
+#### Rozwiązanie 
 
-W związku z tym praktyka programistyczna często dyktuje używanie rozwiązań hybrydowych: rozpoczynamy od metody niezawodnej, lecz powolnej (takiej jak bisekcja), by wejść w "bezpieczne" otoczenie lokalne pierwiastka. Gdy znajdziemy się odpowiednio blisko, przełączamy na szybko zbieżną metodę iteracyjną (jak Newton), znacząco redukując sumaryczny czas i koszt obliczeń.
+Funkcja z której będziemy korzystać w schemacie, będzie funkcją 2 zmiennych:
+$$F(x_{1},x_{2})=(x_{1}^{2}+x_{2}^{2}-1, x_{1}^{2}-x_{2})$$
+
+$$F^{\prime}(x_{1},x_{2})=\begin{pmatrix}2x_{1}&2x_{2}\\ 2x_{1}&-1\end{pmatrix}$$
+
+Schemat iteracyjny Newtona dla funkcji wielu zmiennych:
+$$X_{k+1}=X_{k}-(F^{\prime}(X_{k}))^{-1}F(X_{k})$$ 
+gdzie $X$ jest wektorem zmiennych.
+
+Za punkt startowy obliczeń przyjęliśmy $x_{1}=1$, $x_{2}=0$ i ustawiliśmy 5 iteracji algorytmu.
+
+#### Metoda 
+
+Aby uniknąć kosztownego odwracania macierzy, korzystamy z poniższego przekształcenia:
+$$X_{k+1}=X_{k}-(F^{\prime}(X_{k}))^{-1}F(X_{k})$$ 
+$$F^{\prime}(X_{k})(X_{k+1}-X_{k})=-F(X_{k}), \quad S=(X_{k+1}-X_{k})$$ 
+$$F^{\prime}(X_{k})S=-F(X_{k})$$ 
+$$X_{k+1} = S +X_{k}$$ 
+
+Obliczenie $S$ to rozwiązanie liniowego równania $Ax=B$, można to zrobić korzystając z funkcji `scipy.linalg.solve`.
+
+#### Wyniki
+
+| Pierwiastek | Wartość | Błąd | Błąd względny |
+| :--- | :--- | :--- | :--- |
+| $x_{1}$ | 0.78615 | $4.657 \cdot 10^{-12}$ | $5.924 \cdot 10^{-12}$ |
+| $x_{2}$ | 0.61803 | $9.415 \cdot 10^{-14}$ | $1.523 \cdot 10^{-13}$ |
+
+*Tabela 4: Obliczone wartości pierwiastków oraz błędy obliczeń*
+
+Obliczenia są bardzo dokładne, błąd jest widoczny dopiero na 12 miejscu po przecinku. Trzeba zwrócić uwagę na to, że obliczyliśmy tu tylko jeden z pierwiastków $x_{1}$ dlatego że metoda Newtona znajduje tylko jedno rozwiązanie, w tym przypadku jedną parę $(x_{1},x_{2})$.
+
+## 6. Podsumowanie i wnioski końcowe
+
+Przeprowadzone w ramach laboratorium ćwiczenia i analizy pozwoliły na dogłębne zrozumienie specyfiki, zalet oraz ograniczeń algorytmów iteracyjnych stosowanych do rozwiązywania równań i układów równań nieliniowych. Główne wnioski płynące z wykonanych zadań można podsumować w następujących punktach:
+
+* Zależność zbieżności od postaci schematu: Analiza różnych funkcji iterujących udowodniła, że sukces metody i jej szybkość zależą bezpośrednio od zachowania pochodnej w otoczeniu pierwiastka. Metody o zbieżności kwadratowej potrafią zredukować błąd do poziomu precyzji maszynowej w zaledwie kilku krokach, jednak nie gwarantują globalnej zbieżności.
+* Wrażliwość metody Newtona: Algorytm Newtona, mimo swojej efektywności, wykazał dużą podatność na błędny dobór punktu startowego. Przypadki takie jak oscylacje, zerująca się pochodna czy płaskie otoczenie funkcji prowadzą do awarii. Wymusza to posiadanie mechanizmów zabezpieczających opartych na metodach wolniejszych, ale bezwzględnie zbieżnych (jak metoda bisekcji).
+* Zastosowania sprzętowe i niskopoziomowe: Wyprowadzenie algorytmów dla działań takich jak odwrotność liczby czy pierwiastkowanie pokazało użyteczność metody Newtona-Raphsona w optymalizacji. Umożliwia ona zastąpienie kosztownego sprzętowo dzielenia szybkim ciągiem dodawań, mnożeń oraz przesunięć bitowych bez utraty końcowej dokładności.
+* Wysoka precyzja dla układów wielowymiarowych: Rozszerzenie koncepcji Newtona na układy równań nieliniowych z wykorzystaniem macierzy Jacobiego skutkuje szybkim zbieganiem do rozwiązania (błędy rzędu $10^{-12}$ już po 5 iteracjach). Kluczową praktyką optymalizacyjną w tym kroku jest unikanie bezpośredniego odwracania macierzy na rzecz znacznie efektywniejszego rozwiązywania układu równań liniowych ($Ax=B$).
+
+Konkluzja: Laboratorium zilustrowało wyraźny dualizm w algorytmach numerycznych – kompromis między szybkością a niezawodnością. Z tego względu współczesna praktyka programistyczna najczęściej opiera się na rozwiązaniach hybrydowych. Najlepsze i najbezpieczniejsze rezultaty uzyskuje się, rozpoczynając obliczenia od solidnej, lecz powolnej metody (np. bisekcji) w celu zlokalizowania odpowiedniego otoczenia pierwiastka, a następnie przełączając się na szybko zbieżną metodę iteracyjną (jak metoda Newtona), co pozwala zoptymalizować sumaryczny czas i koszt obliczeń.
+
+## 7. Bibliografia
+- Plik lab8.pdf
+- Wykład "Równania nieliniowe"
