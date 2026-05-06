@@ -51,5 +51,6 @@ Metoda bezpośredniego całkowania numerycznego (kwadratury) z wykorzystaniem al
 ![](zdj1.png)
 
 Wykres błędu wzoru przybliżonego na okres wahadła udowodnił, że założenie o małych wychyleniach ($\sin\theta \approx \theta$) jest akceptowalne dla kątów do ok. $10^\circ-15^\circ$. Dla maksymalnego badanego kąta $90^\circ$, błąd względny aproksymacji liniowej rośnie do około $18\%$.
+Dla kąta 45° ($\pi/4$) błąd względny aproksymacji wynosi zaledwie 4.00% (dokładnie 3.997%). Z kolei dla maksymalnego badanego kąta 90°, błąd ten rośnie do około 18%.
 
 ![](zdj2.png)
