@@ -39,7 +39,7 @@ Warunki początkowe: $y_{1}(1)=1, y_{2}(1)=0, y_{3}(1)=1$.
 ---
 
 ### 4. Zadanie 3. Analiza analityczna rozwiązania
-Dany jest problem $y^{\prime}=\sqrt{1-y}$ z $y(0)=0$.  
+Dany jest problem $y^{\prime}=\sqrt{1-y}$   przy    $y(0)=0$.  
 Sprawdzamy funkcję $y(t)=t(4-t)/4$.  
 Pochodna: $y^{\prime}(t) = (4-2t)/4 = 1 - t/2$.  
 Podstawienie: $\sqrt{1 - \frac{4t-t^2}{4}} = \sqrt{\frac{4-4t+t^2}{4}} = \sqrt{\frac{(2-t)^2}{4}} = |1 - t/2|$.  
