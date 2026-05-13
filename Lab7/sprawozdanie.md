@@ -30,7 +30,7 @@ $$C = \int_0^1 \frac{1}{\sqrt{(\sqrt{2}-1)^2 - (\sqrt{1+z}-1)^2}} dz$$
 ### Wyniki i wnioski
 Do wykonania całkowania użyto algorytmu adaptacyjnego z biblioteki `scipy.integrate.quad`. 
 *   **Część (a):** Całkowanie funkcji $f(x)$ na przedziale $[0, 0.4]$ przebiegło bez problemów stabilnościowych. Uzyskano wartość pracy pozwalającą wyznaczyć prędkość startową $v_0 = 1.0965$ m/s.
-*   **Część (b):** Osobliwość w punkcie $z=1$ sprawia, że mianownik funkcji podcałkowej dąży do zera. Jest to jednak osobliwość całkowalna. Analiza matematyczna pozwala ustalić dokładną wartość tej całki analitycznie jako $2\sqrt{2}-2+\pi \approx 3.970019$. Algorytm `quad` (wykorzystujący kwadratury Gaussa-Kronroda) skutecznie obsłużył to zachowanie asymptotyczne, dając wynik zbieżny z dokładnością do sześciu miejsc dziesiętnych. Całkowity czas wyniósł $t = 0.397002$ s.
+* **Część (b):** Osobliwość w punkcie $z=1$ sprawia, że mianownik funkcji podcałkowej dąży do zera. Jest to jednak osobliwość całkowalna. Analiza matematyczna pozwala ustalić dokładną wartość tej całki analitycznie jako $2\sqrt{2}-2+\pi \approx 3.970019$. Algorytm `quad` skutecznie obsłużył to zachowanie asymptotyczne. Wartość stałej wyliczona numerycznie wynosi $C = 3.970020$, co pokrywa się z wartościa analityczną do 5 cyfr znaczących. Całkowity czas wyniósł $t = 0.397002$ s.
 
 ---
 
@@ -51,6 +51,6 @@ Metoda bezpośredniego całkowania numerycznego (kwadratury) z wykorzystaniem al
 ![](zdj1.png)
 
 Wykres błędu wzoru przybliżonego na okres wahadła udowodnił, że założenie o małych wychyleniach ($\sin\theta \approx \theta$) jest akceptowalne dla kątów do ok. $10^\circ-15^\circ$. Dla maksymalnego badanego kąta $90^\circ$, błąd względny aproksymacji liniowej rośnie do około $18\%$.
-Dla kąta 45° ($\pi/4$) błąd względny aproksymacji wynosi zaledwie 4.00% (dokładnie 3.997%). Z kolei dla maksymalnego badanego kąta 90°, błąd ten rośnie do około 18%.
+Dla kąta 45° błąd względny aproksymacji wynosi 3.844%. Z kolei dla maksymalnego badanego kąta 90°, błąd ten rośnie do około 18%.
 
 ![](zdj2.png)
