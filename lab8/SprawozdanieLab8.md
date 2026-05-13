@@ -70,7 +70,7 @@ W kolejnym etapie badano działanie standardowej funkcji bibliotecznej `scipy.op
 Przyczyny niepowodzeń dla pierwotnych punktów startowych:
 1. Wpadanie w cykl oscylacji: $f_1(x)$ w punkcie $x_0 = 1.0$ metoda nie zbiega i zatrzymuje się po 50 iteracjach, przeskakując między skrajnymi wartościami.
 2. Pochodna równa zeru: Dla $f_2(x)$ w punkcie $x_0 = 1.0$ pochodna wynosi zero, co od razu przerywa działanie algorytmu błędem w pierwszej iteracji (Derivative was zero).
-3. Płaskie otoczenie funkcji: Dla $f_3(x)$ w punkcie $x_0 = 0.01$ ekstremalnie mała wartość pochodnej sprawia, że styczna celuje w duże wartości na osi $OX$. Iteracja wybiega daleko poza obszar poszukiwań (w tym przypadku aż do około $713.6$).
+3. Płaskie otoczenie funkcji: Dla $f_3(x)$ w punkcie $x_0 = 0.01$ ekstremalnie mała wartość pochodnej sprawia, że styczna celuje w duże wartości na osi $OX$. Iteracja zmienia się w tym przypadku aż do około $713.6$.
 4. Brak zbieżności: Dla $f_4(x)$ w punkcie $x_0 = 0.8$ metoda przez 50 iteracji nie potrafi dotrzeć do celu, utykając w okolicach wartości $0.787$.
 
 Modyfikacja wywołania i rozwiązania alternatywne:
