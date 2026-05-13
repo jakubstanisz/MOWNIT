@@ -11,6 +11,12 @@ Celem niniejszego laboratorium było zapoznanie się z iteracyjnymi metodami roz
 
 Rozważano równanie $f(x) = x^2 - 3x + 2 = 0$ z pierwiastkiem $\alpha = 2$.
 
+Oraz 4 przykładowe funkcje reprezentujące schemat iteracyjny:
+1. $\phi_1(x) = (x^2 + 2)/3,$
+2. $\phi_2(x) = \sqrt{3x - 2},$
+3. $\phi_3(x) = 3 - 2/x,$
+4. $\phi_4(x) = (x^2 - 2)/(2x - 3).$
+
 #### Analiza teoretyczna zbieżności
 
 Wartości bezwzględne pochodnych funkcji iterujących w punkcie $\alpha = 2$:
